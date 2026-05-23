@@ -76,6 +76,12 @@ export function Header({ onCartOpen, cartCount = 0, wishlistCount = 0 }: HeaderP
             )}
           </Link>
           <Link
+            href="/seller"
+            className="hidden sm:inline-flex items-center text-[12px] font-medium text-slate-500 hover:text-slate-900 transition-colors mr-2 px-2 py-1 hover:bg-slate-50 rounded-lg"
+          >
+            Panel sprzedawcy
+          </Link>
+          <Link
             href={user ? "/account" : "/account/login"}
             aria-label="Account"
             className="hidden sm:flex p-1 hover:opacity-60 transition-opacity items-center justify-center"
@@ -112,6 +118,13 @@ export function Header({ onCartOpen, cartCount = 0, wishlistCount = 0 }: HeaderP
       >
         <div className="px-4 py-4 space-y-1 border-t border-black/5">
           <MobileMegaMenuContent onLinkClick={() => setMobileMenuOpen(false)} />
+          <Link
+            href="/seller"
+            className="block text-sm py-2 text-rose-600 font-semibold"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Panel sprzedawcy
+          </Link>
           {secondaryLinks.map((link) => (
             <Link
               key={link.href}
