@@ -165,7 +165,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
 
       {/* Low stock urgency banner */}
       {stock.lowStock && (
-        <div className="bg-red-600 text-white text-[12px] font-medium px-4 py-3 text-center tracking-wide">
+        <div className="bg-yellow-400 text-black text-[12px] font-medium px-4 py-3 text-center tracking-wide">
           Zostało tylko {stock.quantity} {stock.quantity === 1 ? "sztuka" : "sztuki"} tego produktu — śpiesz się!
         </div>
       )}

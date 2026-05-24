@@ -101,7 +101,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
             {/* Low stock badge */}
             {hasLowStock && (
-              <span className="absolute bottom-3 left-3 bg-red-600 text-white text-[10px] font-medium px-2 py-1 z-10 leading-none">
+              <span className="absolute bottom-3 left-3 bg-yellow-400 text-black text-[10px] font-medium px-2 py-1 z-10 leading-none">
                 Zostało tylko {stock} {stock === 1 ? "sztuka" : "sztuki"}
               </span>
             )}
