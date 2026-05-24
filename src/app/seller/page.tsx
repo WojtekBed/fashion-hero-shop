@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import posthog from "posthog-js";
 import { Button } from "@/components/ui/button";
 
 export default function SellerAlertPage() {
@@ -89,7 +90,11 @@ export default function SellerAlertPage() {
 
           {/* Przyciski CTA */}
           <div className="flex flex-col gap-3 pt-2">
-            <Link href="/seller/fix-products" className="w-full">
+            <Link
+              href="/seller/fix-products"
+              className="w-full"
+              onClick={() => posthog.capture("seller_fix_products_clicked", { return_cost_pln: 1680, return_rate_pct: 28 })}
+            >
               <Button className="w-full py-6 text-base font-semibold bg-slate-900 hover:bg-slate-800 text-white rounded-xl shadow-lg shadow-slate-900/10 hover:shadow-xl transition-all duration-200">
                 Popraw produkty
               </Button>
