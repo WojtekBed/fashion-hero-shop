@@ -63,7 +63,7 @@ export function ProductCarousel() {
 
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-2"
+          className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-6"
         >
           {filtered.map((product) => (
             <ProductCard

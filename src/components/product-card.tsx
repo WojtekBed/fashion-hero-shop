@@ -2,11 +2,22 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 import { WishlistButton } from "./wishlist-button";
 import { useQuickView } from "./quick-view-provider";
 import { getSellerById } from "@/data/sellers";
+
+/** Deterministic pseudo-random [0, 1) seeded from a string + numeric salt */
+function seeded(id: string, salt: number): number {
+  let h = salt * 2654435761;
+  for (let i = 0; i < id.length; i++) {
+    h = Math.imul(h ^ id.charCodeAt(i), 2246822519);
+    h ^= h >>> 13;
+  }
+  return (h >>> 0) / 4294967296;
+}
 
 interface ProductCardProps {
   product: Product;
@@ -38,6 +49,10 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
   const imageSrc = firstColor.image;
   const showImage = hasRealImage(imageSrc);
+
+  const hasLowStock = seeded(product.id, 7) < 0.4;
+  const stock = Math.floor(seeded(product.id, 13) * 4) + 1;
+  const viewers = Math.floor(seeded(product.id, 31) * 16) + 3;
 
   return (
     <div className={cn("group", className)}>
@@ -82,6 +97,13 @@ export function ProductCard({ product, className }: ProductCardProps) {
                   />
                 </div>
               </div>
+            )}
+
+            {/* Low stock badge */}
+            {hasLowStock && (
+              <span className="absolute bottom-3 left-3 bg-red-600 text-white text-[10px] font-medium px-2 py-1 z-10 leading-none">
+                Zostało tylko {stock} {stock === 1 ? "sztuka" : "sztuki"}
+              </span>
             )}
 
             {/* Quick View button — desktop only, on hover */}
@@ -147,6 +169,14 @@ export function ProductCard({ product, className }: ProductCardProps) {
             {product.originalPrice} zl
           </span>
         )}
+      </div>
+
+      {/* Viewers indicator */}
+      <div className="flex items-center gap-1 mt-1">
+        <Eye className="w-3 h-3 text-warm-gray" />
+        <span className="text-[11px] text-warm-gray">
+          {viewers} {viewers === 1 ? "osoba ogląda teraz" : "osoby oglądają teraz"}
+        </span>
       </div>
     </div>
   );
