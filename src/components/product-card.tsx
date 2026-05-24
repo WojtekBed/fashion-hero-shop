@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Eye } from "lucide-react";
+import posthog from "posthog-js";
 import { cn } from "@/lib/utils";
 import type { Product } from "@/types";
 import { WishlistButton } from "./wishlist-button";
@@ -112,6 +113,12 @@ export function ProductCard({ product, className }: ProductCardProps) {
                 e.preventDefault();
                 e.stopPropagation();
                 openQuickView(product);
+                posthog.capture("product_quick_view_opened", {
+                  product_id: product.id,
+                  product_name: product.name,
+                  product_slug: product.slug,
+                  price: product.price,
+                });
               }}
               className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/90 px-4 py-2 text-[10px] font-medium uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-200 hidden md:block hover:bg-white z-10"
             >
